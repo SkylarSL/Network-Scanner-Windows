@@ -1,14 +1,7 @@
 from scapy.all import ARP, Ether, srp
 
 # Function to scan the local network with specified IP subnet
-def scan():
-
-    ip = input("enter your local ip appended with //24: ")
-
-    if int(ip) == -1:
-        ip = "10.0.0.0/24"
-
-    target_ip = str(ip)
+def scan(target_ip) -> None:
 
     arp = ARP(pdst=target_ip)
 
@@ -32,16 +25,24 @@ def scan():
 
     print("Available devices in the network:")
 
-    print("IP" + " "*18 + "MAC")
+    print("IP" + " "*20 + "MAC")
 
     for client in clients:
 
-        print("{:16}    {}".format(client["ip"], client["mac"]))
+        print("{:17}    |{}".format(client["ip"], client["mac"]))
 
-    return 0
 
 def main():
+
+    ip = input("enter your local ip appended with //24: ")
+
+    if int(ip) == -1:
+        ip = "10.0.0.0/24"
+
+    target_ip = str(ip)
     
-    scan()
+    scan(target_ip)
+
+    return 0
 
 main()
